@@ -5,8 +5,8 @@ using UnityEngine;
 public class Waypoints : MonoBehaviour {
 
     public GameObject[] waypoints;
+    public GameObject player;
     int current = 0;
-    float rotSpeed;
     public float speed;
     float WPradius = 1;
 	
@@ -21,5 +21,20 @@ public class Waypoints : MonoBehaviour {
         }
         transform.position = Vector3.MoveTowards(transform.position, waypoints[current].transform.position, Time.deltaTime * speed);
 
+    }
+
+    void OnTriggerEnter(Collider n)
+    {
+        if (n.gameObject == player)
+        {
+            player.transform.parent = transform;
+        }
+    }
+    void OnTriggerExit(Collider n)
+    {
+        if (n.gameObject == player)
+        {
+            player.transform.parent = null;
+        }
     }
 }
